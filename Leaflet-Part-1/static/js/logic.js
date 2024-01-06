@@ -4,8 +4,6 @@ const url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month
 // Fetching the URL
 fetch(url)
     .then(response => response.json())
-
-    // Plotting the data on the map
     .then(data => {
         const myMap = L.map('map').setView([0, 0], 2);
 
@@ -29,12 +27,20 @@ fetch(url)
             };
 
             // Marker options
-            L.circleMarker([coordinates[1], coordinates[0]], markerOptions)
+            const marker = L.circleMarker([coordinates[1], coordinates[0]], markerOptions)
                 .addTo(myMap)
                 .bindPopup(`<b>Magnitude:</b> ${magnitude}<br><b>Depth:</b> ${depth}`);
+            
+            // Show more details in popup
+            marker.on('click', function () {
+                const earthquakeInfo = `<b>Location:</b> ${feature.properties.place}<br>
+                                        <b>Date & Time:</b> ${new Date(feature.properties.time)}<br>
+                                        <b>More Information:</b> <a href="${feature.properties.url}" target="_blank">USGS Event Page</a>`;
+                marker.bindPopup(earthquakeInfo).openPopup();
+            });
         });
 
-        // Color options
+        // Color options function
         function getColor(depth) {
             if (depth < 50) {
                 return 'green';
@@ -45,8 +51,6 @@ fetch(url)
             }
         }
     })
-    
-  // Catch any errors
-  .catch(error => {
-    console.error('There was a problem with the fetch operation:', error);
-});
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });

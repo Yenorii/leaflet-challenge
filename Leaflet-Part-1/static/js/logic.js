@@ -11,11 +11,14 @@ fetch(url)
             attribution: '© OpenStreetMap'
         }).addTo(myMap);
 
-        // Map options
+        // Map options, and popup details
         data.features.forEach(feature => {
             const coordinates = feature.geometry.coordinates;
             const magnitude = feature.properties.mag;
             const depth = coordinates[2];
+            const place = feature.properties.place;
+            const time = new Date(feature.properties.time);
+            const url = feature.properties.url;
 
             const markerOptions = {
                 radius: Math.max(magnitude * 2, 5),
@@ -29,15 +32,8 @@ fetch(url)
             // Marker options
             const marker = L.circleMarker([coordinates[1], coordinates[0]], markerOptions)
                 .addTo(myMap)
-                .bindPopup(`<b>Magnitude:</b> ${magnitude}<br><b>Depth:</b> ${depth}`);
-            
-            // Show more details in popup
-            marker.on('click', function () {
-                const earthquakeInfo = `<b>Location:</b> ${feature.properties.place}<br>
-                                        <b>Date & Time:</b> ${new Date(feature.properties.time)}<br>
-                                        <b>More Information:</b> <a href="${feature.properties.url}" target="_blank">USGS Event Page</a>`;
-                marker.bindPopup(earthquakeInfo).openPopup();
-            });
+                .bindPopup(`<b>Magnitude:</b> ${magnitude}<br><b>Depth:</b> ${depth}<br><b>Location:</b> ${feature.properties.place}<br><b>Date & Time:</b> ${new Date(feature.properties.time)}<br><b>More Information:</b> <a href="${feature.properties.url}" target="_blank">USGS Event Page</a>`);
+
         });
 
         // Color options function

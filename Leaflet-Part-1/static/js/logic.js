@@ -46,7 +46,7 @@ fetch(url)
         }
     })
     
-    // Catch any errors
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
+  // Catch any errors
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+});

@@ -2,9 +2,20 @@ body {
   padding: 0;
   margin: 0;
 }
-
-#map,
+#map{
+  width: 80%;
+  height: 80vh;
+  margin: 20px auto; 
+  border: 1px solid black; 
+}
 body,
+h1 {
+  display: block;
+  font-size: 36px;
+  font-family: "Arial"; 
+  font-weight: 900;
+  text-align: center;
+}
 html {
   height: 100%;
 }

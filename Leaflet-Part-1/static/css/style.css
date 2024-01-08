@@ -3,12 +3,11 @@ body {
   margin: 0;
 }
 #map{
-  width: 80%;
-  height: 80vh;
+  width: 80vw;
+  height: 70vh;
   margin: 20px auto; 
-  border: 1px solid black; 
+  border: 0px solid black; 
 }
-body,
 h1 {
   display: block;
   font-size: 36px;
@@ -16,6 +15,14 @@ h1 {
   font-weight: 900;
   text-align: center;
 }
+body {
+  display: block;
+  font-size: 14px;
+  font-family: "Arial"; 
+  font-weight: 300;
+  text-align: center; 
+}
+
 html {
   height: 100%;
 }
